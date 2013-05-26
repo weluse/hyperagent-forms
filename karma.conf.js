@@ -12,6 +12,8 @@ frameworks = ['mocha'];
 
 // list of files / patterns to load in the browser
 files = [
+  MOCHA,
+  MOCHA_ADAPTER,
   'components/chai/chai.js',
   'components/uri.js/src/URI.js',
   'components/uri.js/src/URITemplate.js',
@@ -64,7 +66,7 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome', 'PhantomJS', 'Firefox'];
+browsers = ['Chrome', 'Firefox'];
 
 
 // If browser does not capture in given timeout [ms], kill it
@@ -80,6 +82,5 @@ singleRun = false;
 plugins = [
   'karma-mocha',
   'karma-chrome-launcher',
-  'karma-phantomjs-launcher',
   'karma-firefox-launcher'
 ];
