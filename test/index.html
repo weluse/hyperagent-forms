@@ -12,12 +12,12 @@
     <script>mocha.setup('tdd')</script>
     <!-- assertion framework -->
     <script src="../components/chai/chai.js"></script>
-    <script>var assert = chai.assert</script>
 
     <!-- include fixture files here... -->
     <script src="fixtures/samples.js"></script>
 
     <!-- include source files here... -->
+    <script src="setup.js"></script>
     <script src="../components/jquery/jquery.js"></script>
     <script src="../components/q/q.js"></script>
     <script src="../components/uri.js/src/URI.js"></script>
@@ -29,7 +29,6 @@
     <script src="spec/test-resource.js"></script>
 
     <script>
-      Hyperagent.configure('loadHooks', [HyperagentForms.LoadHook]);
       mocha.setup({ globals: ['LiveReload'] });
       mocha.run();
     </script>
