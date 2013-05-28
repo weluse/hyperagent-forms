@@ -1,4 +1,4 @@
-# hyperagent-forms [![Build Status](https://secure.travis-ci.org/weluse/hyperagent-forms.png?branch=master)](https://travis-ci.org/weluse/hyperagent-forms) [![Coverage Status](https://coveralls.io/repos/weluse/hyperagent-forms/badge.png?branch=master)](https://coveralls.io/r/weluse/hyperagent?branch=master)
+# hyperagent-forms [![Build Status](https://secure.travis-ci.org/weluse/hyperagent-forms.png?branch=master)](https://travis-ci.org/weluse/hyperagent-forms) [![Coverage Status](https://coveralls.io/repos/weluse/hyperagent-forms/badge.png?branch=master)](https://coveralls.io/r/weluse/hyperagent-forms?branch=master)
 
 hyperagent-forms is a plugin for [hyperagent.js](http://weluse.github.io/hyperagent)
 adding support for a custom, unofficial form profile to HAL.
