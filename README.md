@@ -1,4 +1,4 @@
-# hyperagent.js [![Build Status](https://secure.travis-ci.org/weluse/hyperagent-forms.png?branch=master)](https://travis-ci.org/weluse/hyperagent-forms) [![Coverage Status](https://coveralls.io/repos/weluse/hyperagent-forms/badge.png?branch=master)](https://coveralls.io/r/weluse/hyperagent?branch=master)
+# hyperagent-forms [![Build Status](https://secure.travis-ci.org/weluse/hyperagent-forms.png?branch=master)](https://travis-ci.org/weluse/hyperagent-forms) [![Coverage Status](https://coveralls.io/repos/weluse/hyperagent-forms/badge.png?branch=master)](https://coveralls.io/r/weluse/hyperagent?branch=master)
 
 hyperagent-forms is a plugin for [hyperagent.js](http://weluse.github.io/hyperagent)
 adding support for a custom, unofficial form profile to HAL.
@@ -49,7 +49,7 @@ https://rw-api.example.com and shall serve as an example for using hyperclient.
   },
   "_forms": {
     "ht:signup": {
-      "href": "/signup"
+      "href": "/signup",
       "method": "POST",
       "schema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
@@ -57,7 +57,7 @@ https://rw-api.example.com and shall serve as an example for using hyperclient.
         "title": "signup",
         "required": [
           "username",
-          "password
+          "password"
         ],
         "type": "object",
         "properties": {
@@ -92,9 +92,31 @@ Forms are available as `forms` attribute on your Hyperagent Resource.
 ```javascript
 var api = Hyperagent.Resource('https://api-rw.example.com/');
 api.fetch().then(function () {
-  api.forms['ht:submit'];
-  // What now? :)
+  var signup = new api.forms['ht:signup']({ username: 'mkelly' });
+  signup.data.username = 'overwrite';
+
+  if (signup.validate()) {
+    signup.submit();
+  } else {
+    console.error(signup.errors); // { password: ['Cannot be empty.'] }
+  }
 });
+```
+
+Submitting this formular with the data `{ username: 'mkelly', password:
+'ilikehal' }` would cause an HTTP request similar to this to be sent:
+
+```http
+POST /signup HTTP/1.1
+Host: api-rw.example.com
+...
+Content-Type: application/json
+Content-Size: xxx
+
+{
+  "username": "mkelly",
+  "password": "ilikehal"
+}
 ```
 
 ## License
