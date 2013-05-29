@@ -23,7 +23,7 @@ files = [
 exclude = [];
 
 preprocessors = {
-  'dist/hyperagent.js': 'coverage'
+  'dist/hyperagent-forms.js': 'coverage'
 };
 
 // test results reporter to use
