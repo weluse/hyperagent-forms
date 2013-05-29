@@ -6,7 +6,10 @@
   },
   "devDependencies": {
     "mocha": "~1.9.0",
-    "chai": "~1.6.0"
+    "chai": "~1.6.0",
+    "q": "~0.9.3",
+    "jquery": "~2.0.0",
+    "uri.js": "~1.10.2"
   },
   "ignore": [
     "**/*.md",
