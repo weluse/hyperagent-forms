@@ -2,6 +2,17 @@
 (function () {
   'use strict';
   describe('Resource', function () {
+    it('should expose an empty forms attribute', function () {
+      var agent = new Hyperagent.Resource('http://example.com/');
+      agent._load({
+        _links: {
+          self: { href: 'http://example.com' }
+        }
+      });
+
+      assert.deepEqual(agent.forms, {});
+    });
+
     it('should expose a forms attribute', function () {
       var agent = new Hyperagent.Resource('http://example.com/');
       agent._load({
