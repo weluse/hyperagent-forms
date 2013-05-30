@@ -1,4 +1,5 @@
-/*global describe, it, Hyperagent, beforeEach, fixtures, assert, _ */
+/*global describe, it, Hyperagent, assert */
+
 (function () {
   'use strict';
   describe('Resource', function () {
@@ -13,7 +14,7 @@
       assert.deepEqual(agent.forms, {});
     });
 
-    it('should expose a forms attribute', function () {
+    it('should expose forms', function () {
       var agent = new Hyperagent.Resource('http://example.com/');
       agent._load({
         _links: {
@@ -26,6 +27,8 @@
           }
         }
       });
+
+      assert.property(agent.forms, 'create');
     });
   });
 }());

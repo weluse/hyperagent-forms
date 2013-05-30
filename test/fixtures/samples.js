@@ -50,4 +50,18 @@ window.fixtures.fullDoc = {
       }
     }
   }
-}
+};
+
+window.fixtures.response = {
+  "_links": {
+    "self": { href: "/response" }
+  },
+  "message": "Everythin's hawt."
+};
+
+window.fixtures.errorResponse = {
+  "_links": {
+    "self": { href: "/" }
+  },
+  "message": "Error"
+};
