@@ -16,7 +16,7 @@ window.fixtures.fullDoc = {
     ]
   },
   "_forms": {
-    "ht:signup": {
+    "signup": {
       "href": "/signup",
       "method": "POST",
       "schema": {

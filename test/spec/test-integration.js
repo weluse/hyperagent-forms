@@ -45,17 +45,18 @@
     it('should expose the form\'s JSON schema', function (done) {
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
       this.agent.fetch().then(function (api) {
-        var form = new api.forms.create();
+        var form = new api.forms.signup();
 
-        assert.defined(form.schema);
-        assert.equal(form.schema, api.forms.schema);
+        assert.isDefined(form.schema);
+        assert.equal(form.schema, api.forms.signup.schema,
+          'Schema should be accessible through both class and instance');
       }.bind(this)).then(done, done);
     });
 
     it('should reject invalid inputs', function (done) {
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
       this.agent.fetch().then(function (api) {
-        var form = new api.forms.create({ username: 'justaname' });
+        var form = new api.forms.signup({ username: 'justaname' });
         assert.isFalse(form.validate());
         assert.property(form.errors, 'password');
       }).then(done, done);
@@ -64,7 +65,7 @@
     it('should accept valid inputs', function (done) {
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
       this.agent.fetch().then(function (api) {
-        var form = new api.forms.create({
+        var form = new api.forms.signup({
           username: 'passy',
           password: 'unicorn'
         });
@@ -77,7 +78,7 @@
     it('should issue a POST request on submit', function (done) {
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
       this.agent.fetch().then(function (api) {
-        var form = new api.forms.create({
+        var form = new api.forms.signup({
           username: 'passy',
           password: 'unicorn'
         });
@@ -98,7 +99,7 @@
         fakeXHR]);
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
       this.agent.fetch().then(function (api) {
-        var form = new api.forms.create({
+        var form = new api.forms.signup({
           username: 'passy',
           password: 'unicorn'
         });
@@ -121,7 +122,7 @@
       this.ajaxResponses.push([fakeXHR, 'error']);
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
       this.agent.fetch().then(function (api) {
-        var form = new api.forms.create({
+        var form = new api.forms.signup({
           username: 'passy',
           password: 'unicorn'
         });
@@ -143,7 +144,7 @@
       this.ajaxResponses.push(['', 'success', fakeXHR]);
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
       this.agent.fetch().then(function (api) {
-        var form = new api.forms.create({
+        var form = new api.forms.signup({
           username: 'passy',
           password: 'unicorn'
         });
