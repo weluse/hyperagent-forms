@@ -118,11 +118,11 @@
           password: 'unicorn'
         });
 
-        form.submit().then(function (xhr, lazyResource) {
-          var resource = lazyResource.load();
-          assert.equal(xhr.statusCode, 201);
-          assert.equal(resource.props.message, 'Everythin\'s hawt.');
-        });
+        return form.submit();
+      }).then(function (xhr, lazyResource) {
+        var resource = lazyResource.load();
+        assert.equal(xhr.statusCode, 201);
+        assert.equal(resource.props.message, 'Everythin\'s hawt.');
       }).then(done, done);
     });
 
@@ -132,6 +132,7 @@
         statusText: 'I\'m a teapot',
         responseText: fixtures.errorResponse
       };
+      var run = false;
 
       this.ajaxResponses.push([fakeXHR, 'error']);
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
@@ -141,12 +142,15 @@
           password: 'unicorn'
         });
 
-        form.submit().then(function (xhr, lazyResource) {
-          var resource = lazyResource.load();
-          assert.equal(xhr.statusCode, 418);
-          assert.equal(resource.props.message, 'Error');
-        });
+        return form.submit();
+      }).then(function (xhr, lazyResource) {
+        var resource = lazyResource.load();
+        assert.equal(xhr.statusCode, 418);
+        assert.equal(resource.props.message, 'Error');
+        run = true;
       }).then(done, done);
+
+      assert.isTrue(run);
     });
 
     it('should work without proper responses', function (done) {
