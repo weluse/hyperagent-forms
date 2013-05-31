@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>hyperagent-forms.js</title>
+    <meta http-requiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="description" content="hyperagent-forms.js is a plugin ">
+    <meta name="author" content="weluse GmbH">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Included CSS Files -->
+    <link rel="stylesheet" href="{{ site.baseurl }}/stylesheets/screen.css">
+    <link href="//fonts.googleapis.com/css?family=Arimo:400,700,400italic|Droid+Serif" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header role="banner">
+            <img class="site-logo" src="{{ site.baseurl }}/images/hyperagent-forms.svg" alt="hyperagent-forms.js">
+            <nav role="navigation">
+                {% for entry in site.navigation %}
+                    {% assign active = '' %}
+                    {% if page.url == entry.url %}
+                        {% assign active = 'active' %}
+                    {% endif %}
+
+                    <li class="{{ active }}">
+                        <a href="{{ site.baseurl }}{{ entry.link }}">{{ entry.text }}</a>
+                    </li>
+                {% endfor %}
+            </nav>
+        </header>
+
+        <section role="main">
+            <aside class="dlbar">
+                <h2>Get it</h2>
+                <ul>
+                    <li><a class="button download" href="{{ site.baseurl }}/install/">Install</a></li>
+                    <li><a class="button github" href="https://github.com/weluse/hyperagent-forms">View On GitHub</a></li>
+                </ul>
+
+                <p>Licensed under MIT</p>
+            </aside>
+            <div class="content {{ page.css_class }}">
+                {{ content }}
+            </div>
+        </section>
+
+        <footer role="contentinfo">
+            <ul>
+                <li class="footer-impress"><a href="https://weluse.de/contact" target="_blank"></a></li>
+                <li class="footer-message"><a href="mailto:phartig@weluse.de"></a></li>
+                <li class="footer-twitter"><a href="https://twitter.com/passy" target="_blank"></a></li>
+            </ul>
+            <p><a href="https://weluse.de/" target="_blank">
+                <img src="{{ site.baseurl }}/images/weluse.svg" alt="weluse Logo"><br>
+                <small>Powered by weluse</small>
+            </a></p>
+
+            <small>
+                Logo under CC BY by Samuel Nudds, from <a
+                    href="http://thenounproject.com/noun/paper-airplane">The
+                    Noun Project</a>
+            </small>
+        </footer>
+    </div>
+    <hr class="global">
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-5361896-6', 'github.io');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>
