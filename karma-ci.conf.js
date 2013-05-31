@@ -12,6 +12,7 @@ files = [
   'components/uri.js/src/URITemplate.js',
   'components/q/q.js',
   'components/hyperagent/dist/hyperagent.js',
+  'components/tv4/tv4.js',
   'dist/hyperagent-forms.js',
   'test/setup.js',
   'test/lib/utils.js',
