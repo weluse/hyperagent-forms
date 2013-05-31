@@ -58,7 +58,8 @@
       this.agent.fetch().then(function (api) {
         var form = new api.forms.signup({ username: 'justaname' });
         assert.isFalse(form.validate());
-        assert.property(form.errors, 'password');
+        assert.lengthOf(form.errors, 1);
+        assert.match(form.errors[0].message, /required property: password/);
       }).then(done, done);
     });
 
@@ -71,7 +72,20 @@
         });
 
         assert.isTrue(form.validate());
-        assert.lengthOf(Object.keys(form.errors), 0);
+        assert.lengthOf(form.errors, 0);
+      }).then(done, done);
+    });
+
+    it('should allow late setting of inputs', function (done) {
+      this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
+      this.agent.fetch().then(function (api) {
+        var form = new api.forms.signup({
+          username: 'passy'
+        });
+
+        form.data.password = 'popsicles';
+
+        assert.isTrue(form.validate());
       }).then(done, done);
     });
 
