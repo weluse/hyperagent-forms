@@ -2,7 +2,7 @@
   "name": "hyperagent-forms",
   "version": "0.0.0",
   "dependencies": {
-    "hyperagent": "https://github.com/weluse/hyperagent/archive/master.zip",
+    "hyperagent": "0.2.0",
     "tv4": "latest"
   },
   "devDependencies": {

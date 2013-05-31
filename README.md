@@ -1,4 +1,4 @@
-# hyperagent-forms [![Build Status](https://secure.travis-ci.org/weluse/hyperagent-forms.png?branch=master)](https://travis-ci.org/weluse/hyperagent-forms) [![Coverage Status](https://coveralls.io/repos/weluse/hyperagent-forms/badge.png?branch=master)](https://coveralls.io/r/weluse/hyperagent-forms?branch=master)
+# hyperagent-forms.js [![Build Status](https://secure.travis-ci.org/weluse/hyperagent-forms.png?branch=master)](https://travis-ci.org/weluse/hyperagent-forms) [![Coverage Status](https://coveralls.io/repos/weluse/hyperagent-forms/badge.png?branch=master)](https://coveralls.io/r/weluse/hyperagent-forms?branch=master)
 
 hyperagent-forms is a plugin for [hyperagent.js](http://weluse.github.io/hyperagent)
 adding support for a custom, unofficial form profile to HAL.
@@ -12,14 +12,23 @@ Download with bower or alternatively
 bower install hyperagent-forms
 ```
 
+## Usage
+
+Just configure hyperagent.js to run the plugin's load hook when a resource is
+loaded:
+
+```javascript
+Hyperagent.configure('loadHooks', [HyperagentForms.LoadHook]);
+```
+
 ## Dependencies
 
-I haven't settled for a JSON Schema implementation yet. Might become one of these:
+There is *optional* support for [JSON Schema v4] validation through the Tiny
+Validator for JSON Schema v4 [tv4]. You only need to load it if you want to use
+`validate`, though.
 
-- https://github.com/geraintluff/tv4
-- https://github.com/natesilva/jayschema
-- https://github.com/akidee/schema.js
-- https://github.com/kriszyp/json-schema
+  [JSON Schema]: http://json-schema.org/
+  [tv4]: https://github.com/geraintluff/tv4
 
 ## Spec
 
@@ -98,7 +107,7 @@ api.fetch().then(function () {
   if (signup.validate()) {
     signup.submit();
   } else {
-    console.error(signup.errors); // { password: ['Cannot be empty.'] }
+    console.error(signup.errors);
   }
 });
 ```
@@ -118,6 +127,82 @@ Content-Size: xxx
   "password": "ilikehal"
 }
 ```
+
+## API
+
+### Resource#forms
+
+When the plugin is loaded, a `forms` attribute is added to every loaded Resource
+instance and represents the form objects under the `_forms` key of the document.
+Forms are lazily constructed and can be accessed via name, CURIE or expanded URL.
+
+```javascript
+assert.equal(api.forms['ht:signup'], api.forms['http://haltalk.herokuapp.com/rels/signup']);
+```
+
+The return value is a constructor for a `Form` class and also exposes a `schema`
+attribute that contains the raw JSON schema that can be accessed without
+instantiating the object.
+
+```javascript
+buildFormFor(api.forms['ht:signup'].schema);
+```
+
+### Form([data])
+
+The constructor of `Forms` takes an an object containing the form values
+specified by the schema.
+
+```javascript
+var form = new api.forms['ht:signup']({ username: 'passy', password: 'unicorns' });
+```
+
+The form can also be constructed without passing in data:
+
+```javascript
+var form = new api.forms['delete']();
+```
+
+### Form#data
+
+The data passed into the constructor can be altered at any point through the
+`data` attribute:
+
+```javascript
+var form = new api.forms['ht:signup']({ password: 'popsicles' });
+form.data.username = 'newuser';
+console.log(form.data.password);  // "popsicles"
+```
+
+### Form#schema / Form.schema
+
+If the form has a JSON schema, it can be accessed through the object or the
+class. This can be used to generate user interfaces based on the required
+inputs or own validations.
+
+
+### Form#submit()
+
+Submits the data to the specified `href`. The `data` will be stringified as JSON
+and is passed as request body. The return value is a promise that contains a
+`DelayedResource` object both when resolved and rejected:
+
+```javascript
+form.submit().then(function (result) {
+  console.log('Status Code: ', result.xhr.statusCode);
+  console.log('User name: ', result.loadResource().props.username);
+}, function (error) {
+  console.warn('Status Code: ', result.xhr.statusCode);
+  console.warn('Error Message: ', result.loadResource().props.error);
+});
+```
+
+### DelayedResource
+
+A delayed resource is wrapped in a promise returned from `submit` operation. It
+always contains the underlying XMLHttpRequest object as `xhr` attribute and has
+a `loadResource()` message that *can* be used to interpret the response text as
+HAL document.
 
 ## License
 
