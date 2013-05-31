@@ -100,7 +100,7 @@
         form.submit();
         assert.lengthOf(this.ajaxCalls, 2);
         assert.equal(this.ajaxCalls[1].method, 'POST');
-      }).then(done, done);
+      }.bind(this)).then(done, done);
     });
 
     it('should provide a lazy resource object', function (done) {
