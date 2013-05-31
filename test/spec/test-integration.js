@@ -21,9 +21,9 @@
           // indicates failure or success, even though the remaining parameters
           // diverge.
           if (response[1] && response[1] !== 'success') {
-            options.error.call(null, response);
+            options.error.apply(null, response);
           } else {
-            options.success.call(null, response);
+            options.success.apply(null, response);
           }
 
         }.bind(this));
@@ -119,9 +119,9 @@
         });
 
         return form.submit();
-      }).then(function (xhr, lazyResource) {
-        var resource = lazyResource.load();
-        assert.equal(xhr.statusCode, 201);
+      }).then(function (result) {
+        var resource = result.loadResource();
+        assert.equal(result.xhr.statusCode, 201);
         assert.equal(resource.props.message, 'Everythin\'s hawt.');
       }).then(done, done);
     });
@@ -132,25 +132,22 @@
         statusText: 'I\'m a teapot',
         responseText: fixtures.errorResponse
       };
-      var run = false;
-
       this.ajaxResponses.push([fakeXHR, 'error']);
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
+
       this.agent.fetch().then(function (api) {
         var form = new api.forms.signup({
           username: 'passy',
           password: 'unicorn'
         });
-
         return form.submit();
-      }).then(function (xhr, lazyResource) {
-        var resource = lazyResource.load();
-        assert.equal(xhr.statusCode, 418);
+      }).then(function () {
+        assert.fail('Should be rejected.');
+      }, function (result) {
+        var resource = result.loadResource();
+        assert.equal(result.xhr.statusCode, 418);
         assert.equal(resource.props.message, 'Error');
-        run = true;
       }).then(done, done);
-
-      assert.isTrue(run);
     });
 
     it('should work without proper responses', function (done) {
@@ -167,9 +164,9 @@
           password: 'unicorn'
         });
 
-        form.submit().then(function (xhr) {
-          assert.equal(xhr.statusCode, 204);
-        });
+        return form.submit();
+      }).then(function (result) {
+        assert.equal(result.xhr.statusCode, 204);
       }).then(done, done);
     });
   });
