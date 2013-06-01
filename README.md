@@ -23,7 +23,7 @@ Hyperagent.configure('loadHooks', [HyperagentForms.LoadHook]);
 
 ## Dependencies
 
-There is *optional* support for [JSON Schema v4] validation through the Tiny
+There is *optional* support for [JSON Schema] v4 validation through the Tiny
 Validator for JSON Schema v4 [tv4]. You only need to load it if you want to use
 `validate`, though.
 
