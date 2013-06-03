@@ -70,11 +70,15 @@ define('hyperagent-forms/form',
       this.schema = object.schema;
       this.method = object.method;
       this.href = object.href;
-      this._options = options;
+      this._options = options || {};
 
       this.errors = {};
       this.data = data;
     }
+
+    Form.prototype._navigateUrl = function (href) {
+      this._options.url = Hyperagent.Resource.resolveUrl(this._options.url, href);
+    };
 
     Form.prototype.validate = function () {
       if (!this.schema) {
@@ -89,8 +93,10 @@ define('hyperagent-forms/form',
     Form.prototype.submit = function () {
       var deferred = Hyperagent._config.defer();
       var options = {
-        url: this.href,
+        url: this._options.url || this.href,
         type: this.method || 'get',
+        dataType: 'text',
+        contentType: 'application/json; charset=utf-8',
         success: this._resolveFactory(deferred),
         error: this._rejectFactory(deferred)
       };
@@ -130,7 +136,12 @@ define('hyperagent-forms/form',
           throw new Error('FormFactory should be created with `new`.');
         }
 
-        return new Form(object, options, data);
+        var form = new Form(object, options, data);
+        if (object.href) {
+          form._navigateUrl(object.href);
+        }
+
+        return form;
       }
 
       FormFactory.schema = object.schema;
