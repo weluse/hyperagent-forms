@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.1.2 (TBA)
+  - Always use an absolute URL to submit
+
 ## v0.1.1 (2013-06-03)
   - Correctly propagate AJAX method
 
