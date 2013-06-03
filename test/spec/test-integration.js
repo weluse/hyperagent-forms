@@ -169,5 +169,22 @@
         assert.equal(result.xhr.statusCode, 204);
       }).then(done, done);
     });
+
+    it('submit with POST method', function (done) {
+      var fakeXHR = {
+        statusCode: 200,
+        statusText: ''
+      };
+
+      this.ajaxResponses.push(['', 'success', fakeXHR]);
+      this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
+      this.agent.fetch().then(function (api) {
+        var form = new api.forms.signup();
+
+        form.submit().then(function () {
+          assert.equal(this.ajaxCalls[1].type.toLowerCase(), 'post');
+        }.bind(this));
+      }).then(done, done);
+    });
   });
 }());
