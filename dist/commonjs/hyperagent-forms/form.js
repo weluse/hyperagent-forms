@@ -29,7 +29,7 @@ Form.prototype.submit = function () {
   var deferred = Hyperagent._config.defer();
   var options = {
     url: this.href,
-    method: this.method || 'get',
+    type: this.method || 'get',
     success: this._resolveFactory(deferred),
     error: this._rejectFactory(deferred)
   };
