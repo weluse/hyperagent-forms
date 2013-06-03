@@ -99,7 +99,7 @@
 
         form.submit();
         assert.lengthOf(this.ajaxCalls, 2);
-        assert.equal(this.ajaxCalls[1].method, 'POST');
+        assert.equal(this.ajaxCalls[1].type, 'POST');
       }.bind(this)).then(done, done);
     });
 
@@ -180,11 +180,11 @@
       this.ajaxResponses.push(JSON.stringify(fixtures.fullDoc));
       this.agent.fetch().then(function (api) {
         var form = new api.forms.signup();
-
-        form.submit().then(function () {
-          assert.equal(this.ajaxCalls[1].type.toLowerCase(), 'post');
-        }.bind(this));
-      }).then(done, done);
+        form.submit().then();
+      }).then(function () {
+        assert.isDefined(this.ajaxCalls[1].type);
+        assert.equal(this.ajaxCalls[1].type.toLowerCase(), 'post');
+      }.bind(this)).then(done, done);
     });
   });
 }());
