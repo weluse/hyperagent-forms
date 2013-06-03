@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.1.2 (TBA)
+## v0.1.2 (2013-06-04)
   - Always use an absolute URL to submit
   - Content Type is always set to application/json
 
