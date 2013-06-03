@@ -2,6 +2,7 @@
 
 ## v0.1.2 (TBA)
   - Always use an absolute URL to submit
+  - Content Type is always set to application/json
 
 ## v0.1.1 (2013-06-03)
   - Correctly propagate AJAX method
