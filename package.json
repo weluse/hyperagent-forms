@@ -17,7 +17,7 @@
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.7",
     "karma-mocha": "^0.1.10",
-    "karma-phantomjs2-launcher": "^0.1.4",
+    "karma-phantomjs-launcher": "^0.1.4",
     "lodash": "~1.2.1",
     "matchdep": "~0.1.1",
     "mocha": "^2.1.0"
