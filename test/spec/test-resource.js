@@ -29,6 +29,7 @@
       });
 
       assert.property(agent.forms, 'create');
+      assert.equal(agent.forms.create.props.method, 'POST');
     });
 
     it('should absolutize form hrefs', function () {
