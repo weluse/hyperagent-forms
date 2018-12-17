@@ -150,7 +150,7 @@ buildFormFor(api.forms['ht:signup'].schema);
 
 ### Form([data])
 
-The constructor of `Forms` takes an an object containing the form values
+The constructor of `Forms` takes an object containing the form values
 specified by the schema.
 
 ```javascript
